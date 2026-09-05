@@ -130,3 +130,10 @@ data = {
 student = Record.from_dict(data)
 
 student.display()
+
+try:
+    invalid_student=Record("Rahul", 21, "")
+    invalid_student.display()
+
+except ValueError as error:
+    print("Error:", error)

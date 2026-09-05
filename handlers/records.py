@@ -1,5 +1,21 @@
 class Record:
     def __init__(self, name, age, branch):
+
+        # Validate name
+        if not name:
+            raise ValueError("Name cannot be empty")
+
+        # Validate age
+        if not isinstance(age, int):
+            raise ValueError("Age must be an integer")
+
+        if age <= 0:
+            raise ValueError("Age must be greater than 0")
+
+        # Validate branch
+        if not branch:
+            raise ValueError("Branch cannot be empty")
+
         self.name = name
         self.age = age
         self.branch = branch
