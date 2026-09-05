@@ -7,3 +7,7 @@ word_count = len(content.split())
 print("Number of lines:", line_count)
 print("Number of words:", word_count)
 print("Content:", content)
+
+with open("results.txt", "w", encoding="utf-8") as file:
+    file.write(f"Number of lines: {line_count}\n")
+    file.write(f"Number of words: {word_count}\n")
