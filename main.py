@@ -1,6 +1,4 @@
-import csv
-import json
-
+from handlers.exceptions import InvalidRecordError
 from handlers.text_handler import (
     read_text_file,
     count_lines,
@@ -135,5 +133,5 @@ try:
     invalid_student=Record("Rahul", 21, "")
     invalid_student.display()
 
-except ValueError as error:
+except InvalidRecordError as error:
     print("Error:", error)
