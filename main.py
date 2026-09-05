@@ -19,6 +19,8 @@ from handlers.json_handler import (
     write_json
 )
 
+from handlers.records import Record
+
 
 # =========================
 # TEXT FILE
@@ -44,11 +46,39 @@ write_results(
 # CSV FILE
 # =========================
 
-read_csv("csv/students.csv")
+header, rows = read_csv("csv/students.csv")
 
-read_csv_dict("csv/students.csv")
+print("Header:", header)
 
-write_csv_dict("csv/students_dict.csv")
+for row in rows:
+    print("Data:", row)
+
+students = read_csv_dict("csv/students.csv")
+
+for student in students:
+    print(
+        "Name:", student["Name"],
+        "Age:", student["Age"],
+        "Branch:", student["Branch"]
+    )
+
+student_data = [
+    {
+        "Name": "Neelansh",
+        "Age": 22,
+        "Branch": "Mechanical"
+    },
+    {
+        "Name": "Rahul",
+        "Age": 21,
+        "Branch": "CSE"
+    }
+]
+
+write_csv_dict(
+    "csv/students_dict.csv",
+    student_data
+)
 
 # =========================
 # JSON FILE
@@ -77,3 +107,26 @@ write_json(
     "json/students_output.json",
     student_data
 )
+
+# =========================
+# RECORD
+# =========================
+
+student = Record("Rahul", 21, "CSE")
+student.display()
+
+data = student.to_dict()
+print("Dictionary:", data)
+
+student2 = Record("Aman", 22, "ME")
+student2.display()
+
+data = {
+    "Name": "Rahul",
+    "Age": "21",
+    "Branch": "CSE"
+}
+
+student = Record.from_dict(data)
+
+student.display()
