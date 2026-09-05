@@ -1,0 +1,3 @@
+Hello, my name is Neelansh.
+I am learning Python file handling.
+This is my first file I/O project.
