@@ -1,21 +1,31 @@
 import csv
 import json
 
+from handlers.text_handler import (
+    read_text_file,
+    count_lines,
+    count_words,
+    write_results,
+)
+
 # Read text file
-with open("text/input.txt", "r", encoding="utf-8") as file:
-    content = file.read()
+content = read_text_file("text/input.txt")
 
-line_count = len(content.splitlines())
-word_count = len(content.split())
+# Count lines and words
+line_count = count_lines(content)
+word_count = count_words(content)
 
+# Display results
 print("Number of lines:", line_count)
 print("Number of words:", word_count)
 print("Content:", content)
 
-# Write text file
-with open("text/results.txt", "w", encoding="utf-8") as file:
-    file.write(f"Number of lines: {line_count}\n")
-    file.write(f"Number of words: {word_count}\n")
+# Write results
+write_results(
+    "text/results.txt",
+    line_count,
+    word_count
+)
 
 # Read CSV using csv.reader
 with open("csv/students.csv", "r", encoding="utf-8") as file:
