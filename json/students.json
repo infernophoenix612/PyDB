@@ -1,0 +1,19 @@
+{
+    "students": [
+        {
+            "name": "Rahul",
+            "age": 21,
+            "branch": "CSE"
+        },
+        {
+            "name": "Aman",
+            "age": 22,
+            "branch": "ME"
+        },
+        {
+            "name": "Priya",
+            "age": 21,
+            "branch": "EE"
+        }
+    ]
+}

@@ -1,7 +1,8 @@
 import csv
+import json
 
 # Read text file
-with open("input.txt", "r", encoding="utf-8") as file:
+with open("text/input.txt", "r", encoding="utf-8") as file:
     content = file.read()
 
 line_count = len(content.splitlines())
@@ -12,12 +13,12 @@ print("Number of words:", word_count)
 print("Content:", content)
 
 # Write text file
-with open("results.txt", "w", encoding="utf-8") as file:
+with open("text/results.txt", "w", encoding="utf-8") as file:
     file.write(f"Number of lines: {line_count}\n")
     file.write(f"Number of words: {word_count}\n")
 
 # Read CSV using csv.reader
-with open("students.csv", "r", encoding="utf-8") as file:
+with open("csv/students.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
 
     header = next(reader)
@@ -28,7 +29,7 @@ with open("students.csv", "r", encoding="utf-8") as file:
 
 
 # Read CSV using csv.DictReader
-with open("students.csv", "r", encoding="utf-8") as file:
+with open("csv/students.csv", "r", encoding="utf-8") as file:
     reader = csv.DictReader(file)
 
     for row in reader:
@@ -40,7 +41,7 @@ with open("students.csv", "r", encoding="utf-8") as file:
 
 
 # Write CSV using csv.DictWriter
-with open("students_dict.csv", "w", newline="", encoding="utf-8") as file:
+with open("csv/students_dict.csv", "w", newline="", encoding="utf-8") as file:
     fieldnames = ["Name", "Age", "Branch"]
 
     writer = csv.DictWriter(file, fieldnames=fieldnames)
@@ -58,3 +59,29 @@ with open("students_dict.csv", "w", newline="", encoding="utf-8") as file:
         "Age": 21,
         "Branch": "CSE"
     })
+
+# Read JSON file
+with open("json/students.json", "r", encoding="utf-8") as file:
+    data = json.load(file)
+
+print("JSON data:", data)
+
+
+# Write JSON file
+student_data = {
+    "students": [
+        {
+            "name": "Neelansh",
+            "age": 22,
+            "branch": "Mechanical"
+        },
+        {
+            "name": "Rahul",
+            "age": 21,
+            "branch": "CSE"
+        }
+    ]
+}
+
+with open("json/students_output.json", "w", encoding="utf-8") as file:
+    json.dump(student_data, file, indent=4)
