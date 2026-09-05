@@ -8,76 +8,56 @@ from handlers.text_handler import (
     write_results,
 )
 
-# Read text file
+from handlers.csv_handler import (
+    read_csv,
+    read_csv_dict,
+    write_csv_dict,
+)
+
+from handlers.json_handler import (
+    read_json,
+    write_json
+)
+
+
+# =========================
+# TEXT FILE
+# =========================
+
 content = read_text_file("text/input.txt")
 
-# Count lines and words
 line_count = count_lines(content)
 word_count = count_words(content)
 
-# Display results
 print("Number of lines:", line_count)
 print("Number of words:", word_count)
 print("Content:", content)
 
-# Write results
 write_results(
     "text/results.txt",
     line_count,
     word_count
 )
 
-# Read CSV using csv.reader
-with open("csv/students.csv", "r", encoding="utf-8") as file:
-    reader = csv.reader(file)
 
-    header = next(reader)
-    print("Header:", header)
+# =========================
+# CSV FILE
+# =========================
 
-    for row in reader:
-        print("Data:", row)
+read_csv("csv/students.csv")
 
+read_csv_dict("csv/students.csv")
 
-# Read CSV using csv.DictReader
-with open("csv/students.csv", "r", encoding="utf-8") as file:
-    reader = csv.DictReader(file)
+write_csv_dict("csv/students_dict.csv")
 
-    for row in reader:
-        print(
-            "Name:", row["Name"],
-            "Age:", row["Age"],
-            "Branch:", row["Branch"]
-        )
+# =========================
+# JSON FILE
+# =========================
 
-
-# Write CSV using csv.DictWriter
-with open("csv/students_dict.csv", "w", newline="", encoding="utf-8") as file:
-    fieldnames = ["Name", "Age", "Branch"]
-
-    writer = csv.DictWriter(file, fieldnames=fieldnames)
-
-    writer.writeheader()
-
-    writer.writerow({
-        "Name": "Neelansh",
-        "Age": 22,
-        "Branch": "Mechanical"
-    })
-
-    writer.writerow({
-        "Name": "Rahul",
-        "Age": 21,
-        "Branch": "CSE"
-    })
-
-# Read JSON file
-with open("json/students.json", "r", encoding="utf-8") as file:
-    data = json.load(file)
+data = read_json("json/students.json")
 
 print("JSON data:", data)
 
-
-# Write JSON file
 student_data = {
     "students": [
         {
@@ -93,5 +73,7 @@ student_data = {
     ]
 }
 
-with open("json/students_output.json", "w", encoding="utf-8") as file:
-    json.dump(student_data, file, indent=4)
+write_json(
+    "json/students_output.json",
+    student_data
+)
