@@ -1,4 +1,7 @@
 from handlers.exceptions import InvalidRecordError
+from handlers.records import Record, records_from_dicts, records_to_dicts
+from handlers.database import Database
+
 from handlers.text_handler import (
     read_text_file,
     count_lines,
@@ -17,8 +20,9 @@ from handlers.json_handler import (
     write_json
 )
 
-from handlers.records import Record
+db = Database("csv/students.csv")
 
+print("Database file:", db.filename)
 
 # =========================
 # TEXT FILE
@@ -51,7 +55,10 @@ print("Header:", header)
 for row in rows:
     print("Data:", row)
 
+
 students = read_csv_dict("csv/students.csv")
+
+records = records_from_dicts(students)
 
 for student in students:
     print(
@@ -60,23 +67,19 @@ for student in students:
         "Branch:", student["Branch"]
     )
 
-student_data = [
-    {
-        "Name": "Neelansh",
-        "Age": 22,
-        "Branch": "Mechanical"
-    },
-    {
-        "Name": "Rahul",
-        "Age": 21,
-        "Branch": "CSE"
-    }
-]
 
+# Record objects → dictionaries
+record_dicts = records_to_dicts(records)
+
+print("Records as dictionaries:", record_dicts)
+
+
+# Dictionaries → CSV
 write_csv_dict(
     "csv/students_dict.csv",
-    student_data
+    record_dicts
 )
+
 
 # =========================
 # JSON FILE
@@ -85,6 +88,7 @@ write_csv_dict(
 data = read_json("json/students.json")
 
 print("JSON data:", data)
+
 
 student_data = {
     "students": [
@@ -106,19 +110,26 @@ write_json(
     student_data
 )
 
+
 # =========================
 # RECORD
 # =========================
 
 student = Record("Rahul", 21, "CSE")
+
 student.display()
 
 data = student.to_dict()
+
 print("Dictionary:", data)
 
+
 student2 = Record("Aman", 22, "ME")
+
 student2.display()
 
+
+# Dictionary → Record object
 data = {
     "Name": "Rahul",
     "Age": "21",
@@ -129,8 +140,14 @@ student = Record.from_dict(data)
 
 student.display()
 
+
+# =========================
+# ERROR HANDLING
+# =========================
+
 try:
-    invalid_student=Record("Rahul", 21, "")
+    invalid_student = Record("Rahul", 21, "")
+
     invalid_student.display()
 
 except InvalidRecordError as error:

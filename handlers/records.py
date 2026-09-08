@@ -39,3 +39,9 @@ class Record:
             int(data["Age"]),
             data["Branch"]
         )
+
+def records_from_dicts(data):
+    return [Record.from_dict(item) for item in data]
+
+def records_to_dicts(records):
+    return [record.to_dict() for record in records]
